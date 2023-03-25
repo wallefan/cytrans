@@ -9,7 +9,7 @@ fn main() {
     let file = Path::new("test.mkv");
     let ffprobe = ffprobe(file).expect("ffprobe error");
     let outputdir = Path::new("extracted");
-    let (mut command, cytube_data) = remux(file, &ffprobe, outputdir, "https://red.baka.haus/obiwan/");
+    let (mut command, cytube_data) = remux(file, &ffprobe, outputdir, "https://red.baka.haus/panzer/", Some("eng".into()));
 
     let _ = create_dir(outputdir);
 

@@ -1,10 +1,6 @@
-use serde::{Serialize, Deserialize};
-use std::process::{Command, Stdio};
-use std::path::Path;
-use std::collections::HashMap;
-use once_cell::sync::Lazy;
+use serde::Serialize;
 
-const CYTUBE_ACCEPTABLE_QUALITY_VALUES: [u16; 8] = [240, 360, 480, 540, 720, 1080, 1440, 2160];
+pub const CYTUBE_ACCEPTABLE_QUALITY_VALUES: [u16; 8] = [240, 360, 480, 540, 720, 1080, 1440, 2160];
 
 
 #[derive(Serialize)]

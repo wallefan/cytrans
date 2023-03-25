@@ -1,6 +1,6 @@
 use std::path::Path;
 use std::process::{Command, Stdio};
-use strum::{EnumString};
+use fixedstr::str4;
 
 #[derive(Debug)]
 #[derive(strum::EnumString)]
@@ -17,7 +17,7 @@ pub struct Track {
     pub kind: TrackType,
     pub codec: String,
     pub scanline_count: Option<u16>,
-    pub language: Option<[u8;3]>,
+    pub language: Option<str4>,
     pub title: Option<String>,
 }
 
@@ -76,7 +76,7 @@ pub fn ffprobe(filename: &Path) -> std::io::Result<FFprobeResult> {
                 let mut kind: Option<TrackType> = None;
                 let mut codec: Option<String> = None;
                 let mut scanline_count: Option<u16> = None;
-                let mut language: Option<[u8;3]> = None;
+                let mut language: Option<str4> = None;
                 let mut title: Option<String> = None;
                 let mut index: Option<u16> = None;
                 for (k,v) in params {
@@ -90,7 +90,7 @@ pub fn ffprobe(filename: &Path) -> std::io::Result<FFprobeResult> {
                         "index" => index = Some(v.parse().unwrap()),
                         "codec_name" => codec = Some(v.to_string()),
                         "coded_height" => scanline_count = Some(v.parse().unwrap()),
-                        "tag:language" => {language = Some(v.as_bytes().try_into().expect("language should be 3 characters"))},
+                        "tag:language" => {language = Some(v.into())},
                         "tag:title" => title = Some(v.to_string()),
                         x => {println!("uncrecognized tag {}", x);},
                     }
